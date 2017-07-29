@@ -1,0 +1,55 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://maven.google.com" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+
+    vBuildTools = "26.0.1"
+    vMinSdk = 15
+    vTargetSdk = 25
+    vCompileSdk = 25
+
+    vMajor = 0
+    vMinor = 0
+    vPatch = 1
+
+    pidgetLibVersionCode = vMajor*100 + vMinor*10 + vPatch
+    pidgetLibVersionName = "${vMajor}.${vMinor}.${vPatch}"
+
+    supportPackage = "com.android.support"
+    vSupportLibrary = "25.4.0"
+
+    dependencies = [
+
+            appcompat   : "$supportPackage:appcompat-v7:$vSupportLibrary" ,
+            design      : "$supportPackage:design:$vSupportLibrary"
+
+    ]
+}
+
+def getBuildTime() {
+    def df = new SimpleDateFormat("yyyy-MM-dd-HH:mm")
+    df.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"))
+    return df.format(new Date())
+}
